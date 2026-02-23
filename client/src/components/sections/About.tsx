@@ -44,16 +44,21 @@ export function About() {
             className="lg:col-span-7 space-y-6"
           >
             <h3 className="text-2xl font-bold text-foreground">
-              Software Engineer based in Cameroon
+              Software Engineer based in Buea, Cameroon
             </h3>
             
             <p className="text-muted-foreground leading-relaxed text-lg">
               Hello! I'm Nkoko Joel Nkoko, a dedicated Software Engineer with a deep passion for building scalable, elegant, and user-centric applications. With a strong foundation in both frontend and backend technologies, I bridge the gap between creative design and robust technical implementation.
             </p>
             
-            <p className="text-muted-foreground leading-relaxed text-lg">
-              Whether it's optimizing complex database queries or animating a fluid user interface, I approach every challenge with meticulous attention to detail and a commitment to engineering excellence.
-            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-foreground">Languages:</span> English (100%), French (70%)
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-foreground">Location:</span> Buea, Cameroon
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
               {[

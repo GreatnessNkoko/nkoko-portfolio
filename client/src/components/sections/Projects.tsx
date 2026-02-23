@@ -1,24 +1,27 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
+import queueImg from "@/assets/project-queue.png";
+import churchImg from "@/assets/project-church.png";
+import taskImg from "@/assets/project-task.png";
 
 const projects = [
   {
     title: "EasyQueue",
-    description: "A smart queue management system designed to reduce wait times and improve customer flow in service centers. Features real-time ticketing and analytics dashboards.",
+    description: "A smart queue management system designed to reduce wait times and improve customer flow in service centers. Features real-time ticketing, priority management, and comprehensive analytics dashboards for administrators to monitor performance and optimize resource allocation. Built with high availability and scalability in mind.",
     tags: ["React", "Node.js", "WebSockets", "Tailwind"],
-    gradient: "from-blue-900/40 to-cyan-900/40"
+    image: queueImg
   },
   {
     title: "Church Website",
-    description: "A comprehensive digital platform for a local church, featuring event management, sermon archives, live streaming integration, and secure online donations.",
+    description: "A comprehensive digital platform for a local church, featuring automated event management, sermon archives with video and audio support, live streaming integration for remote worship, and secure online donations through Stripe. Designed to enhance community engagement and streamline administrative tasks.",
     tags: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
-    gradient: "from-primary/40 to-emerald-900/40"
+    image: churchImg
   },
   {
     title: "TaskSphere",
-    description: "A collaborative project management tool for remote teams, featuring real-time task updates, kanban boards, role-based access control, and progress tracking.",
+    description: "A collaborative project management tool for remote teams, featuring real-time task updates, interactive kanban boards, role-based access control (RBAC), and detailed progress tracking. Includes integrated team chat and document sharing to consolidate all project communication into a single, intuitive interface.",
     tags: ["React", "Express", "Drizzle ORM", "JWT"],
-    gradient: "from-purple-900/40 to-pink-900/40"
+    image: taskImg
   }
 ];
 
@@ -49,12 +52,14 @@ export function Projects() {
               transition={{ delay: idx * 0.15 }}
               className="group relative rounded-2xl overflow-hidden glass-panel flex flex-col h-full hover-elevate"
             >
-              {/* Project Image Placeholder / Gradient Header */}
-              <div className={`h-48 w-full bg-gradient-to-br ${project.gradient} relative overflow-hidden flex items-center justify-center border-b border-border/50`}>
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                <h3 className="text-3xl font-display font-bold text-white/50 group-hover:text-white/90 transition-colors drop-shadow-lg scale-110 group-hover:scale-100 duration-500">
-                  {project.title}
-                </h3>
+              {/* Project Image */}
+              <div className="h-48 w-full relative overflow-hidden border-b border-border/50">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
               </div>
 
               <div className="p-6 flex flex-col flex-1">
