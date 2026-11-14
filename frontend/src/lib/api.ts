@@ -2,7 +2,7 @@ import type { ContactMessageInput, ContactResponse } from "@portfolio/shared";
 
 /**
  * In production the website calls its own /api path, which Vercel forwards
- * to the Render backend (see frontend/vercel.json). VITE_API_URL can point
+ * to the Render backend (see vercel.json). VITE_API_URL can point
  * straight at the backend instead.
  */
 const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "").replace(/\/+$/, "");

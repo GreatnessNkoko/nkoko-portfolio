@@ -6,7 +6,7 @@ A pnpm monorepo where each part deploys on its own:
 
 | Part | Folder | Hosted on | What it does |
 | --- | --- | --- | --- |
-| Website | `frontend/` | **Vercel** | React 19 + Vite + Tailwind CSS 4 single-page site |
+| Website | `frontend/` | **Vercel** (`vercel.json`) | React 19 + Vite + Tailwind CSS 4 single-page site |
 | API | `backend/` | **Render** | Express 5 API: receives contact messages and emails them to you |
 | Database | `database/` | **PostgreSQL** (Neon or Render) | Stores every contact message (Drizzle ORM + SQL migrations) |
 | Shared code | `shared/` | – | Contact form validation used by both the website and the API |
@@ -68,7 +68,7 @@ which is exactly what the contact form needs. Replying to a notification replies
    `CORS_ORIGIN` = `https://nkokoportfolio.vercel.app`.
 3. When it is live, open `https://nkoko-portfolio-api.onrender.com/api/healthz`. It should show `{"ok":true}`.
 
-If Render gives the service a different address, put that address in `frontend/vercel.json` (the `/api/:path*` rewrite).
+If Render gives the service a different address, put that address in `vercel.json` (the `/api/:path*` rewrite).
 
 ### 4. Media: Cloudinary
 
@@ -85,10 +85,8 @@ Until step 4 is done, the site serves the same files from Vercel, so nothing bre
 
 ### 5. Website: Vercel
 
-In the existing Vercel project, **Settings → Build and Deployment**:
-
-- **Root Directory**: `frontend`
-- Framework, build and install commands come from `frontend/vercel.json`.
+Nothing to change in **Settings → Build and Deployment**: leave **Root Directory** empty (the repository root).
+The root `vercel.json` installs the workspace, builds only the website and publishes `frontend/dist`.
 
 **Settings → Environment Variables** (optional):
 
