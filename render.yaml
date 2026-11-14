@@ -1,0 +1,42 @@
+# Render Blueprint for the portfolio API (backend/).
+# In Render: New > Blueprint > pick this repository. Then fill in the values
+# marked `sync: false` in the dashboard.
+#
+# FREE plan: the API sleeps after 15 minutes without visitors and takes up to
+# a minute to wake. The website pings it as soon as someone opens the page,
+# so it is usually awake by the time they send a message.
+services:
+  - type: web
+    name: nkoko-portfolio-api
+    runtime: node
+    plan: free
+    # Closest Render region to Cameroon. Create the database in the same region.
+    region: frankfurt
+    # Build from the repo root so the workspace packages (database, shared) resolve.
+    # --prod=false keeps devDependencies (esbuild) although NODE_ENV=production.
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm run build:backend
+    startCommand: node --enable-source-maps backend/dist/index.mjs
+    healthCheckPath: /api/healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: MIGRATE_ON_START
+        value: "true"
+      # Requests arrive through Vercel's /api rewrite, then Render's own proxy.
+      - key: TRUST_PROXY
+        value: "2"
+      # PostgreSQL connection string (Neon or Render Postgres).
+      - key: DATABASE_URL
+        sync: false
+      # The website's address(es), comma-separated, e.g. https://nkokoportfolio.vercel.app
+      - key: CORS_ORIGIN
+        sync: false
+      # Contact form email, from https://resend.com (free).
+      - key: RESEND_API_KEY
+        sync: false
+      - key: CONTACT_TO_EMAIL
+        value: nkokomoukan@gmail.com
+      - key: CONTACT_FROM_EMAIL
+        value: "Portfolio Contact <onboarding@resend.dev>"
