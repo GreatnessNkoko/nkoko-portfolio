@@ -1,0 +1,12 @@
+# Only install package versions that have been public for at least a day
+# (protection against freshly published malicious releases).
+minimumReleaseAge: 1440
+
+packages:
+  - frontend
+  - backend
+  - database
+  - shared
+
+onlyBuiltDependencies:
+  - esbuild
