@@ -6,3 +6,5 @@ dist
 .env.local
 .env.*.local
 .vercel
+# Public, non-secret frontend build settings
+!frontend/.env
