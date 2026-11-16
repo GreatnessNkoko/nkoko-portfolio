@@ -73,7 +73,7 @@ function ProjectLinks({ project }: { project: Project }) {
 function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
   return (
     <article
-      className={`group overflow-hidden rounded-2xl border border-line bg-surface ${
+      className={`group overflow-hidden rounded-2xl border border-line bg-surface transition-[border-color,box-shadow] duration-300 hover:border-ink/20 hover:shadow-[0_8px_30px_-12px_rgb(0_0_0/0.15)] ${
         featured ? "lg:grid lg:grid-cols-[1.35fr_1fr]" : "flex flex-col"
       }`}
     >
@@ -90,8 +90,8 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
             <span className="rounded-full border border-line px-2.5 py-1 text-muted">{project.status}</span>
           )}
         </div>
-        <h3 className="font-serif text-3xl tracking-tight sm:text-4xl">{project.title}</h3>
-        <p className="mt-1 text-ink">{project.tagline}</p>
+        <h3 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{project.title}</h3>
+        <p className="mt-1.5 font-medium text-ink">{project.tagline}</p>
         <p className="mt-4 leading-relaxed text-muted">{project.description}</p>
 
         {project.highlights.length > 0 && (

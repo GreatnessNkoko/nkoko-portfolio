@@ -65,7 +65,7 @@ which is exactly what the contact form needs. Replying to a notification replies
 
 1. In [Render](https://render.com): **New → Blueprint**, pick this repository. It reads `render.yaml`.
 2. Fill in the secret values: `DATABASE_URL`, `RESEND_API_KEY`, and
-   `CORS_ORIGIN` = `https://nkokoportfolio.vercel.app`.
+   `CORS_ORIGIN` = `https://nkoko-portfolio.vercel.app`.
 3. When it is live, open `https://nkoko-portfolio-api.onrender.com/api/healthz`. It should show `{"ok":true}`.
 
 If Render gives the service a different address, put that address in `vercel.json` (the `/api/:path*` rewrite).
@@ -93,7 +93,7 @@ The root `vercel.json` installs the workspace, builds only the website and publi
 | Name | Value |
 | --- | --- |
 | `VITE_CLOUDINARY_CLOUD_NAME` | your Cloudinary cloud name |
-| `VITE_SITE_URL` | only if the domain changes (default `https://nkokoportfolio.vercel.app`) |
+| `VITE_SITE_URL` | only if the domain changes (default `https://nkoko-portfolio.vercel.app`) |
 
 The website calls `/api/...` on its own domain and Vercel forwards it to Render, so no CORS setup is needed in the browser.
 

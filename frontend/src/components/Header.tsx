@@ -40,9 +40,15 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="font-serif text-2xl tracking-tight" onClick={() => setOpen(false)}>
-          {profile.shortName}
-          <span className="text-accent">.</span>
+        <a
+          href="#top"
+          className="flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-tight"
+          onClick={() => setOpen(false)}
+        >
+          <span aria-hidden className="grid size-8 place-items-center rounded-lg bg-ink text-xs font-bold text-bg">
+            NJ
+          </span>
+          {profile.name}
         </a>
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
@@ -51,7 +57,7 @@ export function Header() {
               key={l.id}
               href={`#${l.id}`}
               aria-current={active === l.id ? "true" : undefined}
-              className={`rounded-full px-4 py-2 text-sm transition-colors hover:text-ink ${
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors hover:text-ink ${
                 active === l.id ? "text-ink" : "text-muted"
               }`}
             >
@@ -99,7 +105,7 @@ export function Header() {
                 <a
                   href={`#${l.id}`}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-line py-4 font-serif text-3xl"
+                  className="block border-b border-line py-4 font-display text-2xl font-semibold tracking-tight"
                 >
                   {l.label}
                 </a>
