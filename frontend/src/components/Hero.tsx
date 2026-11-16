@@ -1,5 +1,5 @@
 import { ArrowRight, Download, MapPin } from "lucide-react";
-import { profile } from "../content";
+import { highlights, profile } from "../content";
 import { CV_FILE, fileUrl, imageSrcSet, imageUrl, PROFILE_PHOTO } from "../lib/media";
 import { SocialIcons } from "./social";
 
@@ -18,11 +18,11 @@ export function Hero() {
             </p>
           )}
 
-          <h1 className="font-serif text-[3.4rem] leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
+          <h1 className="text-[2.9rem] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-7xl lg:text-[5.4rem]">
             {profile.name}
           </h1>
 
-          <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-lg text-ink">
+          <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-lg font-medium text-ink">
             <span>{profile.role}</span>
             <span aria-hidden className="hidden text-line sm:inline">
               /
@@ -67,6 +67,15 @@ export function Hero() {
           />
         </div>
       </div>
+
+      <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:mt-20 lg:grid-cols-4">
+        {highlights.map((h) => (
+          <div key={h.label} className="bg-surface px-5 py-5 sm:px-6">
+            <dt className="text-sm text-muted">{h.label}</dt>
+            <dd className="mt-1 font-display text-2xl font-semibold tracking-tight sm:text-3xl">{h.value}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }

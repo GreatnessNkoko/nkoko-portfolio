@@ -11,7 +11,7 @@ function Timeline({ items }: { items: TimelineItem[] }) {
         >
           <p className="text-sm tabular-nums text-muted sm:pt-1">{item.period}</p>
           <div>
-            <h4 className="text-lg font-medium leading-snug">{item.title}</h4>
+            <h4 className="text-lg font-semibold leading-snug tracking-tight">{item.title}</h4>
             <p className="text-muted">
               {item.org}
               {item.place && <span> · {item.place}</span>}
@@ -38,16 +38,16 @@ export function Experience() {
     <Section id="experience" label="Experience" title="Where I've worked and studied">
       <div className="space-y-16">
         <div>
-          <h3 className="mb-4 font-serif text-3xl">Work</h3>
+          <h3 className="mb-4 text-xl font-semibold tracking-tight">Work</h3>
           <Timeline items={experience} />
         </div>
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-12">
           <div>
-            <h3 className="mb-4 font-serif text-3xl">Education</h3>
+            <h3 className="mb-4 text-xl font-semibold tracking-tight">Education</h3>
             <Timeline items={education} />
           </div>
           <div>
-            <h3 className="mb-4 font-serif text-3xl">Awards & certificates</h3>
+            <h3 className="mb-4 text-xl font-semibold tracking-tight">Awards & certificates</h3>
             <Timeline items={achievements} />
           </div>
         </div>

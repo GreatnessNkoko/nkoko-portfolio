@@ -24,6 +24,14 @@ export const profile = {
   ],
 };
 
+/** Short facts shown under the introduction. Keep them true and checkable. */
+export const highlights = [
+  { value: "5+ years", label: "Writing code" },
+  { value: "2", label: "Software internships" },
+  { value: "Full-stack", label: "Web & mobile" },
+  { value: "Winner", label: "LIAH Code Battle 2025" },
+];
+
 export const contact = {
   email: "nkokomoukan@gmail.com",
   phone: "+237 654 801 108",

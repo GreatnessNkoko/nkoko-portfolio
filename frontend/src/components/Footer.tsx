@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="border-t border-line">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <div>
-          <p className="font-serif text-2xl">{profile.name}</p>
+          <p className="font-display text-lg font-semibold tracking-tight">{profile.name}</p>
           <p className="mt-1 text-sm text-muted">
             © {new Date().getFullYear()} · {profile.role} in {profile.location}
           </p>

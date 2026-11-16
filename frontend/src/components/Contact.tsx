@@ -122,7 +122,7 @@ function ContactForm() {
         <span className="grid size-11 place-items-center rounded-full bg-accent-soft text-accent">
           <Check size={22} aria-hidden />
         </span>
-        <h3 className="mt-5 font-serif text-3xl">Thank you, your message is on its way.</h3>
+        <h3 className="mt-5 text-2xl font-semibold tracking-tight">Thank you, your message is on its way.</h3>
         <p className="mt-3 leading-relaxed text-muted">
           It has landed straight in my inbox. I usually reply within a day. For anything urgent, message me on{" "}
           <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4">
