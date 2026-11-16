@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nkokoportfolio.vercel.app/sitemap.xml
+Sitemap: https://nkoko-portfolio.vercel.app/sitemap.xml
