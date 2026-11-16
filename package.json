@@ -16,7 +16,6 @@
     "start:backend": "pnpm --filter @portfolio/backend run start",
     "db:generate": "pnpm --filter @portfolio/database run generate",
     "db:migrate": "pnpm --filter @portfolio/database run migrate",
-    "media:upload": "pnpm --filter @portfolio/backend run media:upload",
     "typecheck": "pnpm -r --if-present run typecheck"
   },
   "devDependencies": {

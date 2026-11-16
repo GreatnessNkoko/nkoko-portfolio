@@ -7,7 +7,6 @@
     "dev": "tsx watch --env-file-if-exists=.env src/index.ts",
     "build": "node build.mjs",
     "start": "node --enable-source-maps dist/index.mjs",
-    "media:upload": "tsx --env-file-if-exists=.env scripts/upload-media.ts",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
@@ -24,7 +23,6 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^22.15.0",
-    "cloudinary": "^2.7.0",
     "esbuild": "^0.25.10",
     "tsx": "^4.21.0"
   }
