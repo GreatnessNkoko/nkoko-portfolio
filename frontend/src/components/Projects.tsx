@@ -1,47 +1,37 @@
-import { ArrowUpRight, LayoutDashboard, Lock, Smartphone } from "lucide-react";
+import { ArrowUpRight, Lock } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
-import { projects, type Project } from "../content";
-import { imageSrcSet, imageUrl } from "../lib/media";
+import { contact, projects, type Project } from "../content";
+import { media } from "../lib/media";
 import { Section } from "./Section";
 
-function Cover({ project, featured }: { project: Project; featured: boolean }) {
-  if (project.image) {
-    return (
-      <img
-        src={imageUrl(project.image, 1280)}
-        srcSet={imageSrcSet(project.image, [480, 800, 1280])}
-        sizes={featured ? "(min-width: 1024px) 60vw, 100vw" : "(min-width: 768px) 50vw, 100vw"}
-        alt={project.imageAlt ?? `${project.title} screenshot`}
-        loading="lazy"
-        width={1280}
-        height={720}
-        className="aspect-video size-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
-      />
-    );
-  }
-  // No screenshot yet: a simple typographic cover instead of a fake image.
-  return (
-    <div
-      className="flex aspect-video size-full flex-col justify-end p-6 text-white sm:p-8"
-      style={{
-        background: `radial-gradient(120% 120% at 100% 0%, rgba(255,255,255,.18), transparent 55%), ${project.coverColor ?? "#2f6b4f"}`,
-      }}
-    >
-      {project.kind === "mobile" ? (
-        <Smartphone size={44} strokeWidth={1.25} aria-hidden className="mb-auto text-white/85" />
-      ) : (
-        <LayoutDashboard size={44} strokeWidth={1.25} aria-hidden className="mb-auto text-white/85" />
-      )}
-      <span className="text-sm text-white/80">
-        {project.kind === "mobile" ? "Mobile app" : "Web app"} · {project.stack.slice(0, 3).join(" · ")}
-      </span>
+/** Where clicking the picture goes: the live site first, otherwise the code. */
+const mainLink = (p: Project) => p.liveUrl || p.codeUrl || "";
+
+function Cover({ project, fill = false }: { project: Project; fill?: boolean }) {
+  const img = project.image ? (
+    <img
+      src={media(project.image)}
+      alt={project.imageAlt ?? `${project.title} preview`}
+      loading="lazy"
+      width={1280}
+      height={720}
+      className={`aspect-video w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02] ${fill ? "lg:aspect-auto lg:h-full lg:object-left-top" : ""}`}
+    />
+  ) : (
+    <div className="grid aspect-video w-full place-items-center bg-accent-soft text-2xl font-semibold text-accent">
+      {project.title}
     </div>
+  );
+  const href = mainLink(project);
+  if (!href) return img;
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true" className={`block ${fill ? "lg:h-full" : ""}`}>
+      {img}
+    </a>
   );
 }
 
-function ProjectLinks({ project }: { project: Project }) {
-  const linkClass =
-    "inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-medium transition-colors hover:border-ink";
+function Links({ project }: { project: Project }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       {project.liveUrl && (
@@ -49,16 +39,21 @@ function ProjectLinks({ project }: { project: Project }) {
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${linkClass} border-ink bg-ink text-bg hover:opacity-85`}
+          className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-85"
         >
-          Visit site <ArrowUpRight size={15} aria-hidden />
+          Visit live site <ArrowUpRight size={15} aria-hidden />
           <span className="sr-only">: {project.title}</span>
         </a>
       )}
       {project.codeUrl && (
-        <a href={project.codeUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-          <FaGithub size={15} aria-hidden /> Source code
-          <span className="sr-only">: {project.title}</span>
+        <a
+          href={project.codeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-medium transition-colors hover:border-ink"
+        >
+          <FaGithub size={15} aria-hidden /> View code
+          <span className="sr-only">: {project.title} on GitHub</span>
         </a>
       )}
       {!project.codeUrl && project.codeNote && (
@@ -70,51 +65,64 @@ function ProjectLinks({ project }: { project: Project }) {
   );
 }
 
-function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+function Badges({ project }: { project: Project }) {
+  if (!project.context && !project.status) return null;
   return (
-    <article
-      className={`group overflow-hidden rounded-2xl border border-line bg-surface transition-[border-color,box-shadow] duration-300 hover:border-ink/20 hover:shadow-[0_8px_30px_-12px_rgb(0_0_0/0.15)] ${
-        featured ? "lg:grid lg:grid-cols-[1.35fr_1fr]" : "flex flex-col"
-      }`}
-    >
-      <div className={`overflow-hidden border-line ${featured ? "border-b lg:border-b-0 lg:border-r" : "border-b"}`}>
-        <Cover project={project} featured={featured} />
+    <div className="mb-3 flex flex-wrap gap-2 text-xs font-medium">
+      {project.context && <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{project.context}</span>}
+      {project.status && <span className="rounded-full border border-line px-2.5 py-1 text-muted">{project.status}</span>}
+    </div>
+  );
+}
+
+function Stack({ items }: { items: string[] }) {
+  return <p className="text-sm text-muted">{items.join(" · ")}</p>;
+}
+
+function FeaturedProject({ project }: { project: Project }) {
+  return (
+    <article className="group overflow-hidden rounded-2xl border border-line bg-surface lg:grid lg:grid-cols-[1.4fr_1fr]">
+      <div className="overflow-hidden border-b border-line lg:border-b-0 lg:border-r">
+        <Cover project={project} fill />
       </div>
-
-      <div className={`flex flex-1 flex-col p-6 sm:p-8 ${featured ? "lg:justify-center" : ""}`}>
-        <div className="mb-3 flex flex-wrap items-center gap-2 text-xs font-medium">
-          {project.context && (
-            <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{project.context}</span>
-          )}
-          {project.status && (
-            <span className="rounded-full border border-line px-2.5 py-1 text-muted">{project.status}</span>
-          )}
+      <div className="flex flex-col justify-center gap-5 p-6 sm:p-9">
+        <div>
+          <Badges project={project} />
+          <h3 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{project.title}</h3>
+          <p className="mt-2 leading-relaxed text-muted">{project.description}</p>
         </div>
-        <h3 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{project.title}</h3>
-        <p className="mt-1.5 font-medium text-ink">{project.tagline}</p>
-        <p className="mt-4 leading-relaxed text-muted">{project.description}</p>
-
         {project.highlights.length > 0 && (
-          <ul className="mt-5 space-y-2 text-sm text-muted">
+          <ul className="space-y-2 text-sm">
             {project.highlights.map((h) => (
               <li key={h} className="flex gap-3">
-                <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
+                <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
                 {h}
               </li>
             ))}
           </ul>
         )}
+        <Stack items={project.stack} />
+        <Links project={project} />
+      </div>
+    </article>
+  );
+}
 
-        <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Technologies">
-          {project.stack.map((t) => (
-            <li key={t} className="rounded-md bg-bg px-2 py-1 text-xs text-muted ring-1 ring-line">
-              {t}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-auto pt-7">
-          <ProjectLinks project={project} />
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface">
+      <div className="overflow-hidden border-b border-line">
+        <Cover project={project} />
+      </div>
+      <div className="flex flex-1 flex-col gap-4 p-6">
+        <div>
+          <Badges project={project} />
+          <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
+          <p className="mt-1.5 leading-relaxed text-muted">{project.tagline}</p>
+        </div>
+        <Stack items={project.stack} />
+        <div className="mt-auto pt-1">
+          <Links project={project} />
         </div>
       </div>
     </article>
@@ -128,28 +136,24 @@ export function Projects() {
       id="work"
       label="Selected work"
       title="Things I've built"
-      intro="Real projects, from a job portal to a church website and a mobile queueing app. Each one links to its code or live site."
+      intro="A live client website, my final-year project and the apps I build to solve everyday problems."
     >
       <div className="space-y-6">
-        {featured && <ProjectCard project={featured} featured />}
+        {featured && <FeaturedProject project={featured} />}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}
         </div>
       </div>
-      <p className="mt-10 text-muted">
-        More on{" "}
-        <a
-          href="https://github.com/GreatnessNkoko"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-ink underline decoration-line underline-offset-4 hover:decoration-accent"
-        >
-          GitHub
-        </a>
-        .
-      </p>
+      <a
+        href={contact.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-10 inline-flex items-center gap-2 font-medium underline decoration-line underline-offset-4 hover:decoration-accent"
+      >
+        <FaGithub aria-hidden /> See all my code on GitHub
+      </a>
     </Section>
   );
 }

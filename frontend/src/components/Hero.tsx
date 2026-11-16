@@ -1,6 +1,6 @@
-import { ArrowRight, Download, MapPin } from "lucide-react";
+import { ArrowRight, Download, GraduationCap, MapPin } from "lucide-react";
 import { highlights, profile } from "../content";
-import { CV_FILE, fileUrl, imageSrcSet, imageUrl, PROFILE_PHOTO } from "../lib/media";
+import { CV_FILE, media, PROFILE_PHOTO } from "../lib/media";
 import { SocialIcons } from "./social";
 
 export function Hero() {
@@ -32,6 +32,11 @@ export function Hero() {
             </span>
           </p>
 
+          <p className="mt-3 flex items-start gap-2 text-[0.95rem] text-muted">
+            <GraduationCap size={18} aria-hidden className="mt-0.5 shrink-0 text-accent" />
+            {profile.credentials}
+          </p>
+
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{profile.intro}</p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -42,9 +47,8 @@ export function Hero() {
               See my work <ArrowRight size={16} aria-hidden />
             </a>
             <a
-              href={fileUrl(CV_FILE)}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={media(CV_FILE)}
+              download
               className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-6 py-3 text-sm font-medium transition-colors hover:border-ink"
             >
               Download CV <Download size={16} aria-hidden />
@@ -56,9 +60,7 @@ export function Hero() {
 
         <div className="order-1 md:order-2">
           <img
-            src={imageUrl(PROFILE_PHOTO, 640)}
-            srcSet={imageSrcSet(PROFILE_PHOTO, [320, 480, 640, 900])}
-            sizes="(min-width: 768px) 340px, 200px"
+            src={media(PROFILE_PHOTO)}
             alt="Portrait of Nkoko Joel Nkoko"
             width={720}
             height={1080}

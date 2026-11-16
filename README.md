@@ -10,24 +10,29 @@ A pnpm monorepo where each part deploys on its own:
 | API | `backend/` | **Render** | Express 5 API: receives contact messages and emails them to you |
 | Database | `database/` | **PostgreSQL** (Neon or Render) | Stores every contact message (Drizzle ORM + SQL migrations) |
 | Shared code | `shared/` | – | Contact form validation used by both the website and the API |
-| Media | `frontend/public/media/` | **Cloudinary** | Profile photo, CV and project screenshots |
+| Media | `frontend/public/media/` | **Vercel** (with the website) | Profile photo, CV and project previews |
 
 ```
 Visitor ─▶ Vercel (website) ── /api/* ──▶ Render (API) ──▶ PostgreSQL
-                │                              └──────────▶ Resend ──▶ your Gmail
-                └── images & CV ──▶ Cloudinary CDN
+                                               └──────────▶ Resend ──▶ your Gmail
 ```
 
-## Editing the content
+## Updating your site
 
-All text, links, projects, experience and skills live in one file:
-**`frontend/src/content.ts`**. Change it, push, and Vercel redeploys.
+Everything is done on GitHub (website or app): edit a file, **Commit changes**, and Vercel
+puts the new version online within about a minute.
 
-- A link left as `""` is hidden (for example `tiktok`, or a project's `liveUrl`).
-- Project screenshots go in `frontend/public/media/` (WebP, about 1280×720). Set
-  `image: "project-name.webp"` on the project, then run `pnpm media:upload`.
-- To update the CV, replace `frontend/public/media/nkoko-joel-nkoko-cv.pdf` and
-  run `pnpm media:upload`.
+| I want to… | Do this |
+| --- | --- |
+| Change text, links, experience or skills | Edit **`frontend/src/content.ts`** |
+| Add a project | In `content.ts`, copy one block inside `projects`, change it. The **first** project is the big one. |
+| Add a live link to a project | Put the address in its `liveUrl: ""` |
+| Add my TikTok | Put the profile address in `tiktok: ""` |
+| Replace my CV | Upload the new PDF to `frontend/public/media/` with the **same name**: `nkoko-joel-nkoko-cv.pdf` |
+| Replace my photo | Upload a new `profile.jpg` (portrait, about 900 px tall) to `frontend/public/media/` |
+| Add a project picture | Upload a `.webp`, `.jpg` or `.png` (about 1280×720) to `frontend/public/media/` and set `image: "file-name.webp"` on the project |
+
+Rules of thumb: anything left as `""` is hidden; keep the quotes and commas as they are.
 
 ## Run it on your computer
 
@@ -70,20 +75,7 @@ which is exactly what the contact form needs. Replying to a notification replies
 
 If Render gives the service a different address, put that address in `vercel.json` (the `/api/:path*` rewrite).
 
-### 4. Media: Cloudinary
-
-1. From the [Cloudinary console](https://console.cloudinary.com), copy the cloud name, API key and API secret into `backend/.env`.
-2. Upload everything in `frontend/public/media`:
-   ```bash
-   pnpm media:upload
-   ```
-3. In Cloudinary **Settings → Security**, turn on **Allow delivery of PDF and ZIP files**
-   (free accounts block PDF downloads by default, which would break "Download CV").
-4. In Vercel, set `VITE_CLOUDINARY_CLOUD_NAME` to your cloud name (step 5) and redeploy.
-
-Until step 4 is done, the site serves the same files from Vercel, so nothing breaks in the meantime.
-
-### 5. Website: Vercel
+### 4. Website: Vercel
 
 Nothing to change in **Settings → Build and Deployment**: leave **Root Directory** empty (the repository root).
 The root `vercel.json` installs the workspace, builds only the website and publishes `frontend/dist`.
@@ -92,10 +84,11 @@ The root `vercel.json` installs the workspace, builds only the website and publi
 
 | Name | Value |
 | --- | --- |
-| `VITE_CLOUDINARY_CLOUD_NAME` | your Cloudinary cloud name |
 | `VITE_SITE_URL` | only if the domain changes (default `https://nkoko-portfolio.vercel.app`) |
 
 The website calls `/api/...` on its own domain and Vercel forwards it to Render, so no CORS setup is needed in the browser.
+
+**Visitor statistics**: the site includes Vercel Web Analytics. Turn it on once in Vercel → project → **Analytics** → **Enable**.
 
 ## Notes
 
@@ -116,4 +109,3 @@ The website calls `/api/...` on its own domain and Vercel forwards it to Render,
 | `pnpm typecheck` | Type-check every package |
 | `pnpm db:generate` | Create a SQL migration from schema changes |
 | `pnpm db:migrate` | Apply migrations to `DATABASE_URL` |
-| `pnpm media:upload` | Upload `frontend/public/media` to Cloudinary |

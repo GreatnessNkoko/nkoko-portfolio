@@ -10,7 +10,7 @@
       "destination": "https://nkoko-portfolio-api.onrender.com/api/:path*"
     },
     {
-      "source": "/((?!assets/|media/|api/).*)",
+      "source": "/((?!assets/|media/|api/|_vercel/).*)",
       "destination": "/index.html"
     }
   ],
