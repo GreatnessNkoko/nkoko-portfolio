@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { useEffect } from "react";
 import { About } from "./components/About";
 import { Contact } from "./components/Contact";
@@ -30,6 +31,7 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <Analytics />
     </>
   );
 }
