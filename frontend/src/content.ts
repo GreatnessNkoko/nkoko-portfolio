@@ -12,14 +12,18 @@ export const profile = {
   available: true,
   intro:
     "I build web and mobile applications end to end, from the database and API to the interface people use every day, with React, Node.js, PostgreSQL and Flutter.",
+  /** One line under the name: your qualifications at a glance. */
+  credentials: "B.Tech Computer Engineering · MSc Software Engineering student, University of Buea",
   about: [
-    "I'm a Computer Engineering student at the University of Buea (B.Eng., graduating December 2026) with more than five years of programming behind me. I enjoy turning real problems I see around me, like long queues, hard job searches and churches without an online home, into software that people actually use.",
+    "I hold a Bachelor of Technology (B.Tech) in Computer Engineering from the College of Technology, University of Buea (2025), and will complete my Bachelor of Engineering (B.Eng.) there in December 2026. I am now also enrolled in a Master of Science (MSc) in Software Engineering at the Faculty of Engineering and Technology, University of Buea.",
+    "With more than five years of programming behind me, I enjoy turning real problems I see around me, like long queues, hard job searches and churches without an online home, into software that people actually use.",
     "Most of my work is full-stack: React and Tailwind on the front, Node.js and Express on the back, PostgreSQL or Firebase for data. I also build mobile apps with Flutter. I care about clean, reliable code and interfaces that feel simple.",
   ],
   facts: [
     { label: "Based in", value: "Buea, Cameroon" },
     { label: "Languages", value: "English (fluent), French (professional)" },
-    { label: "Studying", value: "B.Eng. Computer Engineering, University of Buea" },
+    { label: "Degree", value: "B.Tech Computer Engineering (2025)" },
+    { label: "Currently studying", value: "MSc Software Engineering · B.Eng. Computer Engineering (Dec 2026)" },
     { label: "Open to", value: "Full-time roles, internships and freelance projects" },
   ],
 };
@@ -28,7 +32,7 @@ export const profile = {
 export const highlights = [
   { value: "5+ years", label: "Writing code" },
   { value: "2", label: "Software internships" },
-  { value: "Full-stack", label: "Web & mobile" },
+  { value: "MSc", label: "Software Engineering, in progress" },
   { value: "Winner", label: "LIAH Code Battle 2025" },
 ];
 
@@ -40,8 +44,7 @@ export const contact = {
   github: "https://github.com/GreatnessNkoko",
   linkedin: "https://www.linkedin.com/in/nkoko-joel-nkoko-4bb18529a",
   facebook: "https://www.facebook.com/profile.php?id=100064953483370",
-  // TODO: add your TikTok profile link, e.g. "https://www.tiktok.com/@yourname"
-  tiktok: "",
+  tiktok: "https://www.tiktok.com/@nkokojoel180",
 };
 
 export type Project = {
@@ -198,10 +201,22 @@ export const experience: TimelineItem[] = [
 
 export const education: TimelineItem[] = [
   {
-    title: "B.Eng. Computer Engineering",
-    org: "University of Buea",
+    title: "MSc Software Engineering",
+    org: "Faculty of Engineering and Technology, University of Buea",
     place: "Buea",
-    period: "2022 – Dec 2026 (expected)",
+    period: "Currently enrolled",
+  },
+  {
+    title: "Bachelor of Engineering (B.Eng.), Computer Engineering",
+    org: "College of Technology, University of Buea",
+    place: "Buea",
+    period: "Completing Dec 2026",
+  },
+  {
+    title: "Bachelor of Technology (B.Tech), Computer Engineering",
+    org: "College of Technology, University of Buea",
+    place: "Buea",
+    period: "2025",
     points: ["Software engineering, databases, networks, operating systems, algorithms, AI, embedded systems"],
   },
   { title: "GCE Advanced Level", org: "GBHS Dschang", place: "Dschang", period: "2020 – 2022" },

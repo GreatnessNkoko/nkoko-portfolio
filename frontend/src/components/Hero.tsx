@@ -1,4 +1,4 @@
-import { ArrowRight, Download, MapPin } from "lucide-react";
+import { ArrowRight, Download, GraduationCap, MapPin } from "lucide-react";
 import { highlights, profile } from "../content";
 import { CV_FILE, media, PROFILE_PHOTO } from "../lib/media";
 import { SocialIcons } from "./social";
@@ -30,6 +30,11 @@ export function Hero() {
             <span className="inline-flex items-center gap-1.5 text-muted">
               <MapPin size={16} aria-hidden /> {profile.location}
             </span>
+          </p>
+
+          <p className="mt-3 flex items-start gap-2 text-[0.95rem] text-muted">
+            <GraduationCap size={18} aria-hidden className="mt-0.5 shrink-0 text-accent" />
+            {profile.credentials}
           </p>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{profile.intro}</p>
